@@ -96,7 +96,7 @@ const getPagination = (req, res) => {
                     );
             }
         }else{
-            res.send(result);
+            res.status(200).send(result);
         }
     })
 }
