@@ -132,5 +132,20 @@ Product.pagination = (data, result)=> {
     })
 }
 
+Product.getProductId = (id, result) => {
+    pool.query("SELECT * FROM product WHERE id = $1", [id], (err, res) => {
+        if(err){
+            console.log("Error: ", err);
+            result(err, null);
+            return;
+        }
+        if (res.rowCount === 0) {
+            result({ kind: "not_found" }, null);
+            return;
+        }
+        result(null, res.rows[0]);
+    })
+}
+
 
 module.exports = Product;

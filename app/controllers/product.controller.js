@@ -101,10 +101,30 @@ const getPagination = (req, res) => {
     })
 }
 
+const getProductById = (req , res) => {
+    Product.getProductId(req.params.id, (err, result) => {
+        if(err){
+            if(err.kind == "not_found"){
+                res.status(404).send(
+                    {message: "Not found this Id" }
+                    );
+            }
+            else{
+                res.status(500).send(
+                    {message: "Error message" }
+                    );
+            }
+        }else{
+            res.status(200).send(result);
+        }
+    })
+}
+
 module.exports = { 
     createNewProduct,
     getAllProduct, 
     updateProductCtrl,
     deleteProduct,
-    getPagination
+    getPagination,
+    getProductById
 };
